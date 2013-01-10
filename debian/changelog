@@ -1,0 +1,70 @@
+restartd (0.2.2) unstable; urgency=low
+
+  * Fix typos in debian/control and in manpage restartd.8.
+  * Add a French manpage restartd.fr.8.
+
+ -- Aurélien GÉRÔME <ag@roxor.cx>  Thu, 14 Sep 2006 22:42:57 +0200
+
+restartd (0.2.1) unstable; urgency=low
+
+  * Add a "-f" option to run restartd in foreground (Closes: #387101).
+    Thanks to frealek <frealek@altern.org>, but he says the patch has
+    been done by someone else who I do not know, so I cannot credit
+    that person properly.
+  * Update manpage restartd.8.
+  * Update description in debian/control accordingly with the manpage.
+  * Clean debian/init and make it LSB-compliant.
+  * Clean the code, run indent, and fix typos everywhere.
+
+ -- Aurélien GÉRÔME <ag@roxor.cx>  Thu, 14 Sep 2006 18:41:32 +0200
+
+restartd (0.2) unstable; urgency=low
+
+  * Adopt the package (Closes: #358514).
+  * Update to the latest Standards-Version.
+  * Throw away Debian revision number, because it is a native package.
+  * Add README.Debian with a note concerning system upgrades
+    (Closes: #191302).
+
+ -- Aurélien GÉRÔME <ag@roxor.cx>  Sat, 22 Jul 2006 00:11:39 +0200
+
+restartd (0.1.a-4) unstable; urgency=low
+
+  * QA upload.
+  * Package is orphaned (#358514); set maintainer to Debian QA Group.
+  * Acknowledge NMU.  Closes: #264232, #281179, #281961, #282328.
+  * debian/rules: Add support for DEB_BUILD_OPTIONS=noopt.
+  * debian/changelog: Remove obsolete Emacs local variables.
+
+ -- Matej Vela <vela@debian.org>  Thu,  6 Apr 2006 11:20:04 +0200
+
+restartd (0.1.a-3.1) unstable; urgency=low
+
+  * NMU to fix packaging problems:
+    - update debhelper usage, standards-version, add force-reload to
+      initscript (closes: #264232);
+    - update FSF address in copyright;
+    - add license pointer to copyright (closes: #281179).
+  * Redirect std* to /dev/null and change cdw to '/' thanks to
+    "Christian G. Warden" <cwarden@postica.com> for the patch
+    (closes: #281961, #282328).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.hu>  Fri, 24 Mar 2006 10:53:48 +0100
+
+restartd (0.1.a-3) unstable; urgency=low
+
+  * Fixed memory leak, forgot regfree(3) after regular expression. Closes: bug#155220
+
+ -- Tibor Koleszar <oldw@debian.org>  Thu, 20 Jun 2002 16:20:31 +0100
+
+restartd (0.1.a-2) unstable; urgency=low
+
+  * Fixed typos. Closes: bug#150375
+
+ -- Tibor Koleszar <oldw@debian.org>  Thu, 20 Jun 2002 09:28:12 +0100
+
+restartd (0.1.a-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Tibor Koleszar <oldw@debian.org>  Tue, 11 Jun 2002 14:54:37 +0100

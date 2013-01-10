@@ -1,0 +1,66 @@
+#! /bin/sh
+# /etc/init.d/restartd
+#
+# Written by Tibor Koleszar <oldw@debian.org>.
+# Modified by Aurélien GÉRÔME <ag@roxor.cx>.
+
+### BEGIN INIT INFO
+# Provides:          restartd
+# Required-Start:    $syslog
+# Required-Stop:     $syslog
+# Should-Start:      $local_fs
+# Should-Stop:       $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Restartd daemon init.d script
+# Description:       Use to manage the Restartd daemon.
+### END INIT INFO
+
+set -e
+
+DAEMON=/usr/sbin/restartd
+PARAMS=""
+PID="/var/run/restartd.pid"
+
+test -x $DAEMON || exit 0
+
+case "$1" in
+  start)
+    echo -n "Starting process checker: "
+    $DAEMON $PARAMS
+    echo "restartd."
+    ;;
+  stop)
+    echo -n "Stopping process checker: "
+    if kill `cat /var/run/restartd.pid 2>/dev/null` >/dev/null 2>&1
+    then
+	rm -f /var/run/restartd.pid
+    else
+	echo -n "not running: "
+    fi
+    echo "restartd."
+      ;;
+  restart)
+    echo -n "Stopping process checker: "
+    if kill `cat /var/run/restartd.pid 2>/dev/null` >/dev/null 2>&1
+    then
+	rm -f /var/run/restartd.pid
+    else
+	echo -n "not running: "
+    fi
+    echo "restartd."
+    echo -n "Starting process checker: "
+    $DAEMON $PARAMS
+    echo "restartd."
+      ;;
+  reload|force-reload)
+    echo "Reloading restartd configuration files"
+    kill -HUP `cat /var/run/restartd.pid`
+    ;;
+  *)
+    echo "Usage: /etc/init.d/restartd {start|stop|restart|reload|force-reload}"
+    exit 1
+    ;;
+esac
+
+exit 0

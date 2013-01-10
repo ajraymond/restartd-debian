@@ -1,0 +1,8 @@
+Note concerning system upgrades
+-------------------------------
+
+Before issuing any upgrade commands, it is recommended to stop restartd
+to avoid it to restart its watched deamons. After the upgrade, it is
+necessary to start it.
+
+ -- Aurélien GÉRÔME <ag@roxor.cx>  Sat, 22 Jul 2006 00:11:39 +0200

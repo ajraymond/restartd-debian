@@ -1,0 +1,15 @@
+Source: restartd
+Section: utils
+Priority: extra
+Maintainer: Aurélien GÉRÔME <ag@roxor.cx>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.7.2
+
+Package: restartd
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Process checker and/or restarter
+ Restartd is a daemon for checking running and not running
+ processes. It reads the /proc directory every n seconds and does
+ a POSIX regexp on the process names. You can execute a script or a
+ program if the process is or is not running.
