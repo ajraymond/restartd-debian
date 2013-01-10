@@ -1,9 +1,10 @@
 Source: restartd
 Section: utils
 Priority: extra
-Maintainer: Aurélien GÉRÔME <ag@roxor.cx>
-Build-Depends: debhelper (>= 4.0.0)
-Standards-Version: 3.7.2
+Maintainer: Alexandre Raymond <alexandre.j.raymond@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.8.4
+Homepage: https://github.com/ajraymond/restartd
 
 Package: restartd
 Architecture: any
