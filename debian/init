@@ -34,9 +34,9 @@ case "$1" in
     echo -n "Stopping process checker: "
     if kill `cat /var/run/restartd.pid 2>/dev/null` >/dev/null 2>&1
     then
-	rm -f /var/run/restartd.pid
+    rm -f /var/run/restartd.pid
     else
-	echo -n "not running: "
+    echo -n "not running: "
     fi
     echo "restartd."
       ;;
@@ -44,9 +44,9 @@ case "$1" in
     echo -n "Stopping process checker: "
     if kill `cat /var/run/restartd.pid 2>/dev/null` >/dev/null 2>&1
     then
-	rm -f /var/run/restartd.pid
+    rm -f /var/run/restartd.pid
     else
-	echo -n "not running: "
+    echo -n "not running: "
     fi
     echo "restartd."
     echo -n "Starting process checker: "
