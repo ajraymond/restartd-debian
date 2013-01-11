@@ -20,7 +20,7 @@ PROJ_NAME=`basename "$PWD" | awk -F'/' '{print $NF}' | cut -d'-' -f 1`
 PROJ_VERSION=`cat ../${PROJ_NAME}/version`
 
 # Check that the changelog contains information for this version
-grep -q "${PROJ_NAME} (${PROJ_VERSION})" debian/changelog || {
+grep -q "${PROJ_NAME} (${PROJ_VERSION}-[0-9]\+)" debian/changelog || {
     echo "ERROR: no changelog entry found for version ${PROJ_VERSION}"
     exit 1
 }
