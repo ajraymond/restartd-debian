@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Usage: ./mkpkd.sh [debuild options]
+
 [ -f `basename "$0"` ] || {
     echo "ERROR: this should be run from the 'project'-debian directory directly"
     exit 1
@@ -61,7 +63,7 @@ cp -r ../debian ${PROJ_NAME}-${PROJ_VERSION}/ || {
 }
 
 cd ${PROJ_NAME}-${PROJ_VERSION}/
-debuild -us -uc || {
+debuild "$@" || {
     echo "ERROR: debuild failed"
     exit 1
 }
