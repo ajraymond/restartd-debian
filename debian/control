@@ -3,7 +3,7 @@ Section: utils
 Priority: extra
 Maintainer: Alexandre Raymond <alexandre.j.raymond@gmail.com>
 Build-Depends: debhelper (>= 7.0.50~)
-Standards-Version: 3.8.4
+Standards-Version: 3.9.3
 Homepage: https://github.com/ajraymond/restartd
 
 Package: restartd
