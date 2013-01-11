@@ -4,6 +4,8 @@ restartd (0.2.3-1) unstable; urgency=low
   * Adopting package (closes: #677775).
   * [debian/control]:
    - Added myself as the new maintainer.
+   - Updated Standards-Version to 3.9.3.
+   - Updated debhelper version in Build-Depends.
   * [debian/source/format]:
    - Moved to new format.
   * [debian/init]:
