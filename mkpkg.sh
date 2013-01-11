@@ -27,6 +27,11 @@ grep -q "${PROJ_NAME} (${PROJ_VERSION}-[0-9]\+)" debian/changelog || {
     exit 1
 }
 
+(uscan --no-download --verbose | grep -q "Newest version on remote site is ${PROJ_VERSION}") || {
+    echo "ERROR: upstream version is not up-to-date"
+    exit 1
+}
+
 rm -rf tmpbuild/
 
 cd ../${PROJ_NAME}
