@@ -8,7 +8,7 @@ Homepage: https://github.com/ajraymond/restartd
 
 Package: restartd
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Process checker and/or restarter
  Restartd is a daemon for checking running and not running
  processes. It reads the /proc directory every n seconds and does

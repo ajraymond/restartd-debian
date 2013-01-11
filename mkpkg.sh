@@ -61,8 +61,8 @@ cp -r ../debian ${PROJ_NAME}-${PROJ_VERSION}/ || {
 }
 
 cd ${PROJ_NAME}-${PROJ_VERSION}/
-dpkg-buildpackage || {
-    echo "ERROR: package build failed"
+debuild -us -uc || {
+    echo "ERROR: debuild failed"
     exit 1
 }
 
