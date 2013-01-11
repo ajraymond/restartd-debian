@@ -1,3 +1,17 @@
+restartd (0.2.3-1) unstable; urgency=low
+
+  * project moved out of Debian as the scope is now broader.
+  * Renamed LICENCE file to LICENSE.
+  * Fix version number.
+  * [debian/control]:
+   - Added myself as the new maintainer.
+  * [debian/source/format]:
+   - Moved to new format.
+  * [debian/init]:
+   - Added $remote_fs to required-start/stop, fixes lintian warning.
+
+ -- Alexandre Raymond <alexandre.j.raymond@gmail.com>  Fri, 11 Jan 2013 11:23:51 -0500
+
 restartd (0.2.2) unstable; urgency=low
 
   * Fix typos in debian/control and in manpage restartd.8.
