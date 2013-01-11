@@ -1,6 +1,7 @@
 restartd (0.2.3-1) unstable; urgency=low
 
   * Project moved out of Debian as the scope is now broader.
+  * Adopting package (closes: #677775).
   * [debian/control]:
    - Added myself as the new maintainer.
   * [debian/source/format]:
