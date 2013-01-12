@@ -2,6 +2,21 @@
 
 #Usage: ./mkpkd.sh [debuild options]
 
+###############################################
+#Environment variables supported by the script
+MODE="${MODE:=base}"
+([ "${MODE}" = full ] || [ "${MODE}" = base ]) || {
+    echo "Invalid MODE chosen"
+    exit 1
+}
+
+SIGN="${SIGN:=n}"
+([ "${SIGN}" = y ] || [ "${SIGN}" = n ]) || {
+    echo "Invalid SIGN chosen"
+    exit 1
+}
+###############################################
+
 [ -f `basename "$0"` ] || {
     echo "ERROR: this should be run from the 'project'-debian directory directly"
     exit 1
@@ -67,9 +82,52 @@ cp -r ../debian ${PROJ_NAME}-${PROJ_VERSION}/ || {
     exit 1
 }
 
+if [ "${SIGN}" = n ]; then
+    SIGNOPT=" -us -uc "
+else
+    SIGNOPT=""
+fi
+
+# When doing a full run, don't need to build binary packages with debuild
+if [ "${MODE}" = full ]; then
+    BUILDTYPEOPT=" -S "
+else
+    BUILDTYPEOPT=""
+fi
+
 cd ${PROJ_NAME}-${PROJ_VERSION}/
-debuild "$@" || {
-    echo "ERROR: debuild failed"
+
+#lintian complains because of some confusion between ubuntu/debian
+debuild ${BUILDTYPEOPT} ${SIGNOPT} --lintian-opts --suppress-tags bad-distribution-in-changes-file "$@" || {
+    echo "ERROR: debuild failed to create source package"
     exit 1
 }
+
+if [ "${MODE}" = full ]; then
+    pbuilder-dist sid amd64 clean || {
+        echo "ERROR: pbuilder-dist clean"
+        exit 1
+    }
+    pbuilder-dist sid amd64 update || {
+        echo "ERROR: pbuilder-dist update"
+        exit 1
+    }
+    pbuilder-dist sid amd64 build ../${PROJ_NAME}_${PROJ_VERSION}-*.dsc || {
+        echo "ERROR: pbuilder-dist build"
+        exit 1
+    }
+
+    pbuilder-dist sid i386 clean || {
+        echo "ERROR: pbuilder-dist clean"
+        exit 1
+    }
+    pbuilder-dist sid i386 update || {
+        echo "ERROR: pbuilder-dist update"
+        exit 1
+    }
+    pbuilder-dist sid i386 build ../${PROJ_NAME}_${PROJ_VERSION}-*.dsc || {
+        echo "ERROR: pbuilder-dist build"
+        exit 1
+    }
+fi
 
