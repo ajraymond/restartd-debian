@@ -2,7 +2,7 @@ Source: restartd
 Section: utils
 Priority: extra
 Maintainer: Alexandre Raymond <alexandre.j.raymond@gmail.com>
-Build-Depends: debhelper (>= 8.0.0)
+Build-Depends: debhelper (>= 8.0.0), dpkg-dev (>= 1.16.1~)
 Standards-Version: 3.9.3
 Homepage: https://github.com/ajraymond/restartd
 
