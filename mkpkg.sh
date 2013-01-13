@@ -1,11 +1,19 @@
 #!/bin/bash
 
-#Usage: ./mkpkd.sh [debuild options]
+# Usage: ./mkpkg.sh [debuild options]
+
+# Use MODE=host for local compilation, then MODE=pbuilder for final
+# verifications on amd64/i386, and to generate source files for upload.
+#
+# Generated files are put in tmpbuild/.
+
 
 ###############################################
-#Environment variables supported by the script
-MODE="${MODE:=base}"
-([ "${MODE}" = full ] || [ "${MODE}" = base ]) || {
+# Environment variables supported by the script
+###############################################
+# debuild mode: host=source/hostarch; pbuilder=source
+MODE="${MODE:=host}"
+([ "${MODE}" = pbuilder ] || [ "${MODE}" = host ]) || {
     echo "Invalid MODE chosen"
     exit 1
 }
@@ -42,10 +50,12 @@ grep -q "${PROJ_NAME} (${PROJ_VERSION}-[0-9]\+)" debian/changelog || {
     exit 1
 }
 
-(uscan --no-download --verbose | grep -q "Newest version on remote site is ${PROJ_VERSION}") || {
-    echo "ERROR: upstream version is not up-to-date"
-    exit 1
-}
+if [ "${MODE}" = pbuilder ]; then
+    (uscan --no-download --verbose | grep -q "Newest version on remote site is ${PROJ_VERSION}") || {
+        echo "ERROR: upstream version is not up-to-date"
+        exit 1
+    }
+fi
 
 rm -rf tmpbuild/
 
@@ -88,8 +98,8 @@ else
     SIGNOPT=""
 fi
 
-# When doing a full run, don't need to build binary packages with debuild
-if [ "${MODE}" = full ]; then
+# When doing a pbuilder run, don't need to build binary packages with debuild
+if [ "${MODE}" = pbuilder ]; then
     BUILDTYPEOPT=" -S "
 else
     BUILDTYPEOPT=""
@@ -98,12 +108,12 @@ fi
 cd ${PROJ_NAME}-${PROJ_VERSION}/
 
 #lintian complains because of some confusion between ubuntu/debian
-debuild ${BUILDTYPEOPT} ${SIGNOPT} "$@" --lintian-opts --pedantic --suppress-tags bad-distribution-in-changes-file || {
+debuild ${BUILDTYPEOPT} ${SIGNOPT} "$@" --lintian-opts --pedantic -i -I --show-overrides --suppress-tags bad-distribution-in-changes-file || {
     echo "ERROR: debuild failed to create source package"
     exit 1
 }
 
-if [ "${MODE}" = full ]; then
+if [ "${MODE}" = pbuilder ]; then
     pbuilder-dist sid amd64 clean || {
         echo "ERROR: pbuilder-dist clean"
         exit 1
