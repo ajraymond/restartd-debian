@@ -98,7 +98,7 @@ fi
 cd ${PROJ_NAME}-${PROJ_VERSION}/
 
 #lintian complains because of some confusion between ubuntu/debian
-debuild ${BUILDTYPEOPT} ${SIGNOPT} --lintian-opts --suppress-tags bad-distribution-in-changes-file "$@" || {
+debuild ${BUILDTYPEOPT} ${SIGNOPT} "$@" --lintian-opts --pedantic --suppress-tags bad-distribution-in-changes-file || {
     echo "ERROR: debuild failed to create source package"
     exit 1
 }
