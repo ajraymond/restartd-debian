@@ -31,6 +31,8 @@ SIGN="${SIGN:=n}"
 }
 
 # Remove -debian from the directory name
+CPU_ARCH=`uname -m`
+
 PROJ_NAME=`basename "$PWD" | awk -F'/' '{print $NF}' | cut -d'-' -f 1`
 
 [ -d ../${PROJ_NAME} ] || {
@@ -114,18 +116,20 @@ debuild ${BUILDTYPEOPT} ${SIGNOPT} "$@" --lintian-opts --pedantic -i -I --show-o
 }
 
 if [ "${MODE}" = pbuilder ]; then
-    pbuilder-dist sid amd64 clean || {
-        echo "ERROR: pbuilder-dist clean"
-        exit 1
-    }
-    pbuilder-dist sid amd64 update || {
-        echo "ERROR: pbuilder-dist update"
-        exit 1
-    }
-    pbuilder-dist sid amd64 build ../${PROJ_NAME}_${PROJ_VERSION}-*.dsc || {
-        echo "ERROR: pbuilder-dist build"
-        exit 1
-    }
+    if [ "${CPU_ARCH}" = "x86_64" ]; then
+        pbuilder-dist sid amd64 clean || {
+            echo "ERROR: pbuilder-dist clean"
+            exit 1
+        }
+        pbuilder-dist sid amd64 update || {
+            echo "ERROR: pbuilder-dist update"
+            exit 1
+        }
+        pbuilder-dist sid amd64 build ../${PROJ_NAME}_${PROJ_VERSION}-*.dsc || {
+            echo "ERROR: pbuilder-dist build"
+            exit 1
+        }
+    fi
 
     pbuilder-dist sid i386 clean || {
         echo "ERROR: pbuilder-dist clean"
