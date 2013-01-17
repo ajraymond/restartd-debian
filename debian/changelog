@@ -1,9 +1,11 @@
 restartd (0.2.4-1) unstable; urgency=low
 
   * [debian/rules]:
-   - Enable hardening options via DPKG_EXPORT_BUILDFLAGS and buildflags.mk
+   - Enable hardening options via DPKG_EXPORT_BUILDFLAGS and buildflags.mk.
   * [debian/control]:
-   - Added duilb-depends on dpkg-dev (>= 1.16.1~)
+   - Added duilb-depends on dpkg-dev (>= 1.16.1~).
+  * [changelog]:
+   - Added upstream changelog to repackaged sources, fixes lintian warning.
 
  -- Alexandre Raymond <alexandre.j.raymond@gmail.com>  Sun, 13 Jan 2013 15:58:25 -0500
 

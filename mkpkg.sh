@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Usage: ./mkpkg.sh [debuild options]
+# Usage: ./debian_package.sh [debuild options]
 
 # Use MODE=host for local compilation, then MODE=pbuilder for final
 # verifications on amd64/i386, and to generate source files for upload.
@@ -61,19 +61,17 @@ fi
 
 rm -rf tmpbuild/
 
-cd ../${PROJ_NAME}
-./mktarball.sh || {
-    echo "ERROR: tarball creation failed"
+./upstream_repackage.sh || {
+    echo "ERROR: could not repackage upstream sources"
     exit 1
 }
-cd - > /dev/null
 
 mkdir tmpbuild || {
     echo "ERROR: could not create tmpbuild directory"
     exit 1
 }
 
-mv ../${PROJ_NAME}/${PROJ_NAME}-${PROJ_VERSION}.tar.gz tmpbuild/${PROJ_NAME}_${PROJ_VERSION}.orig.tar.gz || {
+mv ${PROJ_NAME}-${PROJ_VERSION}.tar.gz tmpbuild/${PROJ_NAME}_${PROJ_VERSION}.orig.tar.gz || {
     echo "ERROR: could not move tarball archive to build directory"
     exit 1
 }
