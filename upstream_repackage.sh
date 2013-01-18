@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Script v1.0
+
 [ -f `basename "$0"` ] || {
     echo "ERROR: This script should be run from the source directory"
     exit 1

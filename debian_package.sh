@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Script v1.0
+
 # Usage: ./debian_package.sh [debuild options]
 
 # Use MODE=host for local compilation, then MODE=pbuilder for final
